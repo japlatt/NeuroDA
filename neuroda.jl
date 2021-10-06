@@ -1,3 +1,10 @@
+# To do:
+# 1. Comment code 
+# 2. Make sure cost can be modified depending on problem 
+# 3. Fix loading and plotting data
+# 4. Stochastic diffeq 
+
+
 include("Cost.jl")
 
 module NeuroDA
