@@ -22,6 +22,24 @@ using ..CostFunctions
 
 export neuroda, run_neuroda, init_guess, plot_data_sim, make_data
 
+"""
+    neuroda(D, Np, start, num_pts, dt, path_to_obs,
+            lower_bounds, upper_bounds, dynamics, obs_vars)
+
+Create a neuroda object.
+
+# Arguments
+- `D`: the number of state variables.
+- `Np`: the number of parameters.
+- `start`: starting point of estimation data.
+- `num_pts`: number of points from start for estimation.
+- `dt`: time step for the data.
+- `path_to_obs`: path to the observation file.
+- `lower_bounds`: array of lower bounds, length(D+Np).
+- `upper_bounds`: array of upper bounds, length(D+Np).
+- `dynamics`: definition of the model.  See DifferentialEquations.jl for structure
+- `obs_vars`: list of observed variables e.g., [1, 3, 5]
+"""
 struct neuroda
     D::Int
     Np::Int
@@ -44,8 +62,24 @@ struct neuroda
     end
 end
 
+"""
+    run_neuroda(config::neuroda, init_guess::Array{Float64,1}, num_pts_rmse::Int64, <keyword arguments>)
+
+Run the data assimilation routine.
+
+# Arguments
+- `config`: configuration for the da problem.
+- `init_guess`: initial guess for the D+Np initial conditions + parameters.
+- `num_pts_rmse`: Number of points to apply the rmse cost function.
+- `maxtime` : Amount of time (seconds) to spend on the optimization.
+- `popsize` : population size for the CMAES algorith. default -> 4 + floor(3*log(D+Np))
+- `ϵ` : cost = ϵ*spike_cost + (1-ϵ)*RMSE.
+- `spike_thresh`: threshold in voltage for the spiking threshold
+"""
 function run_neuroda(config::neuroda, init_guess::Array{Float64,1}, num_pts_rmse::Int64;
                      maxtime=360.0, popsize=-1, ϵ=0.7, spike_thresh=0.0, σᵪ = 2)
+    @assert num_pts_rmse < config.num_pts
+
     lower_bounds = config.lower_bounds
     upper_bounds = config.upper_bounds
     data_t = config.data_t
@@ -79,7 +113,7 @@ function run_neuroda(config::neuroda, init_guess::Array{Float64,1}, num_pts_rmse
     end
 
     if popsize == -1 
-        popsize = 4 + floor(Int, 3*log(config.Np))
+        popsize = 4 + floor(Int, 3*log(config.D+config.Np))
     end
 
     ens_prob = EnsembleProblem(config.dynamics)

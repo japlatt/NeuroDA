@@ -84,7 +84,6 @@ function bivariate_spike_distance(t11, t22, ti, te, N)
         corner_spikes[itc,4:5], ibegin_t2 = find_corner_spikes(tc, t2, ibegin_t2, ti, te)
     end
 
-    #print corner_spikes
     xisi = zeros((N,2))
     xisi[:,1] = corner_spikes[:,3] - corner_spikes[:,2]
     xisi[:,2] = corner_spikes[:,5] - corner_spikes[:,4]
