@@ -5,8 +5,8 @@ using DelimitedFiles
 using Plots
 using Distributions
 
-include("../neuroda.jl")
-using .NeuroDA
+# include("../neuroda.jl")
+using NeuroDA
 
 path_to_stim_file = "NaKL_Twin/current_time.txt"
 

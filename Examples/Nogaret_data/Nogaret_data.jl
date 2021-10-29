@@ -5,8 +5,8 @@ using DelimitedFiles
 using Plots
 using Distributions
 
-include("/home/jplatt/Documents/DA/NeuroDA/neuroda.jl")
-using .NeuroDA
+# include("/home/jplatt/Documents/DA/NeuroDA/neuroda.jl")
+using NeuroDA
 
 path_to_stim_file = "datafiles/N2_stim.txt"
 
