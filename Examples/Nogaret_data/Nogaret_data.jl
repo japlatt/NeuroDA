@@ -191,4 +191,4 @@ plot_data_sim(config, u0)
 #                     ϵ=0.7, spike_thresh=15.0,
 #                     σᵪ = 2)
 
-# plot_data_sim(config, xmin)
+# plot_data_sim(config, xmin, num_pred = 1000)
