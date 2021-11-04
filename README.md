@@ -63,13 +63,15 @@ dynamics = ODEProblem(NaKL, init, tspan, rand_p)
 ```
 
 obs_vars: remember julia is one indexed!
-"""
+
+```Julia
+'''
 neuroda(D, Np, start, num_pts, dt, path_to_obs,
         lower_bounds, upper_bounds, dynamics, obs_vars)
 
 Create a neuroda object.
 
-Arguments
+# Arguments
 - `D`: the number of state variables.
 - `Np`: the number of parameters.
 - `start`: starting point of estimation data.
@@ -80,7 +82,8 @@ Arguments
 - `upper_bounds`: array of upper bounds, length(D+Np).
 - `dynamics`: definition of the model.  See DifferentialEquations.jl for structure
 - `obs_vars`: list of observed variables e.g., [1, 3, 5]
-"""
+'''
+```
 
 ### Run
 
