@@ -1,8 +1,6 @@
 using OrdinaryDiffEq
 using Interpolations
-using Noise
 using DelimitedFiles
-using Plots
 using Distributions
 
 # include("/home/jplatt/Documents/DA/NeuroDA/neuroda.jl")

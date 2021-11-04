@@ -1,14 +1,11 @@
 using OrdinaryDiffEq
 using Interpolations
-using Noise
 using DelimitedFiles
-using Plots
 using Distributions
 
-# include("../neuroda.jl")
 using NeuroDA
 
-path_to_stim_file = "NaKL_Twin/current_time.txt"
+path_to_stim_file = "current_time.txt"
 
 stim_values = readdlm(path_to_stim_file, Float64)
 stim = LinearInterpolation(stim_values[:, 1], stim_values[:, 2])
@@ -32,7 +29,7 @@ if remake_data
     dt = 0.025
     ϵ = 2.0
     make_data_dynamics = ODEProblem(NaKL, u0, tspan, p)
-    save_path = "NaKL_Twin/voltage.txt"
+    save_path = "voltage.txt"
     make_data(make_data_dynamics, dt, ϵ, Lidx, save_path = save_path, plot_data=true)
 end
 
@@ -42,7 +39,7 @@ start = 1
 num_pts = 4000
 num_pts_rmse = 1000
 dt = 0.025
-path_to_obs = "NaKL_Twin/voltage.txt"
+path_to_obs = "voltage.txt"
 lower_bounds = [-71.0, 0.0, 0.0, 0.0, 0.5, 50.0, 5.0, 0.1, 0.0, -100.0, -60.0,
                 -60.0, -70.0, -70.0, 11.0, -20.0, 25.0, 0.05, 0.1, 0.1, 1.0, 0.1, 2.0]
 upper_bounds = [100.0, 1.0, 1.0, 1.0, 2.0, 200.0, 40.0, 1.0, 100.0, -50.0, -50.0,

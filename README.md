@@ -127,3 +127,7 @@ Run the data assimilation routine.
 
 run plot_data_sim(config, xmin, num_pred=NUM_PRED) with the config object and the xmin returned from run_neuroda to see the estimation and prediction.
 
+### Make Data
+
+For convenience in twin experiments there's make_data(dynamics::ODEProblem, dt, ϵ, obs_var; save_path = "data.txt", plot_data=false) that takes in an ODEFunction and creates data with time step dt and gaussian noise ϵ.  Only observed variables are saved.
+
