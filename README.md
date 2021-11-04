@@ -10,6 +10,15 @@ NeuroDA runs using [Julia](https://julialang.org/).  To install first install ju
 ## Usage
 Make sure to add "using NeuroDA" to import the functions from the package.
 
+Julia needs to be run in the REPL, start the REPL by typing "julia -t NUM_THREADS" into the terminal (replace NUM_THREADS with a number).  Workflow would be:
+
+1. julia -t 4
+2. include("my_neuroda_program.jl")
+my_neuroda_program.jl will include all the definitions but will not necessarily call the whole program.
+3. run init_guess(config::neuroda, num_pts, num_it, tol, initial_θ) as many times as needed to get a good initial guess
+4. run run_neuroda(config::neuroda, init_guess::Array{Float64,1}, num_pts_rmse::Int64; maxtime, popsize, ϵ, spike_thresh, σᵪ) with the correct initial guess
+
+
 ### Stimulus
 You will first want to define a stimulus (if you have one) as a continuous function in time.  To do this read in the stimulus and time.  For example:
 
@@ -85,6 +94,14 @@ Create a neuroda object.
 '''
 ```
 
+### Initial Guess
+A good initial guess can be important.  One way to get this is to run a local optimization routine over only the first spike.  The function to do this is
+```Julia
+init_guess(config::neuroda, num_pts, num_it = 10000, tol = 1e-5, initial_θ = Float64[])
+```
+where config is the above configuration file and num_pts is the number of pts from the beginning of the data to the end of the first spike.  This can give a reasonable initial guess to feed to the global routine although it is not strictly necessary.
+
+
 ### Run
 
 Now just call run_neuroda by passing in your neuroda config and an initial guess.  Other parameters for spiking neuron data are ϵ and num_pts_rmse.  Often I will want to only closely fit the shape of the first spike and then fit the spike timings for the rest of the data.  num_pts_rmse will tell the algorithm how many points from t = 0 you want to fit using the rmse, the rest is spike distance.  ϵ governs the weight between rmse and spike timing.  ϵ = 0 means all the weight is on emse while ϵ = 1 only counts spike timing.
@@ -105,4 +122,8 @@ Run the data assimilation routine.
 - `spike_thresh`: threshold in voltage for the spiking threshold
 '''
 ```
+
+### Plot 
+
+run plot_data_sim(config, xmin, num_pred=NUM_PRED) with the config object and the xmin returned from run_neuroda to see the estimation and prediction.
 
