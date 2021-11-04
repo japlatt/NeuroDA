@@ -6,6 +6,7 @@ NeuroDA is an optimization package that seeks to find the parameters of a detail
 
 NeuroDA runs using [Julia](https://julialang.org/).  To install first install julia as per instructions on the website.  Then in terminal type "julia" to enter the REPL.  Once there type "]" to enter the package manager and type "add https://github.com/japlatt/NeuroDA.git" which will install NeuroDA and dependencies.
 
+Once installed you can get the latest version by going to the REPL (julia in terminal).  Then "]", "up NeuroDA" which will fetch the latest from github.
 
 ## Usage
 Make sure to add "using NeuroDA" to import the functions from the package.
