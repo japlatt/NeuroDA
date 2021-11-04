@@ -137,6 +137,7 @@ using CMAEvolutionStrategy
 using Plots
 using DelimitedFiles
 using NLopt
+using Noise
 
 using .CostFunctions
 
