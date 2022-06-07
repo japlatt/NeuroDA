@@ -12,6 +12,9 @@ stim_values = readdlm(path_to_stim_file, Float64)
 stim = LinearInterpolation(stim_values[:, 1], stim_values[:, 2])
 Iapp(t)::Float64 = stim(t)
 
+D = 14
+Np = 74
+
 const Vtemp = 13.
 
 function albeta(VV, V, dV, dVt, aV4, t0, τϵ, delta)
@@ -20,7 +23,7 @@ function albeta(VV, V, dV, dVt, aV4, t0, τϵ, delta)
     #    double thetai,thetait,tauj,thetai2,thetai1;
         alpha = zeros(14)
         beta = zeros(14)
-        for j in 2:D::Int64
+        for j in 2:14
             thetai = (VV-V[j])/dV[j];
             thetait = (VV-V[j])/dVt[j];
             if j==6 || j==8 # A2 and K2 tau_h */
@@ -136,9 +139,6 @@ if remake_data
     save_path = "datafiles/N2_twin.txt"
     make_data(make_data_dynamics, dt, ϵ, Lidx, save_path = save_path, plot_data=true)
 end
-
-D = 14
-Np = 74
 
 lower_init = zeros(D); lower_init[1] = -70.0
 upper_init = ones(D);  upper_init[1] = -60.0
