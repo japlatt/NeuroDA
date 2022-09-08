@@ -298,7 +298,7 @@ function plot_data_sim(config::neuroda, xmin; plot_obsvar_only=true, num_pred=0)
     if plot_obsvar_only
         layout = (length(config.obs_vars), 1)
         p = plot(data_t, data_u, ls = :dash, label="Data", layout = layout)
-        plot!(sol, label = "xmin", layout = layout, vars = config.obs_vars,
+        plot!(sol, label = "xmin", layout = layout, idxs = config.obs_vars,
               lw = 2, alpha=0.7)
     else
         layout = (length(config.D), 1)
@@ -366,7 +366,7 @@ function local_opt(prob_local, data_t, data_u, initial_θ, config, num_it = 1000
 
     p = plot(data_t, transpose(data_u), ls = :dash, label="Data",
              layout = (length(obs_vars), 1))
-    plot!(sol_local_min, vars = obs_vars, label = "Fit",
+    plot!(sol_local_min, idxs = obs_vars, label = "Fit",
           layout = (length(obs_vars), 1))
     display(p)
     minx
