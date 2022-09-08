@@ -246,7 +246,6 @@ function run_neuroda(config::neuroda, init_guess::Array{Float64,1}, num_pts_rmse
                                                   spike_thresh),
                                saveat=data_t,
                                prob_generator = problem_new_parameters_ic,
-                               ensemblealg = EnsembleThreads(),
                                trajectories = popsize,
                                save_idxs = config.obs_vars,
                                abstol = 1e-6, reltol = 1e-4
@@ -324,7 +323,7 @@ function make_data(dynamics::ODEProblem, dt, ϵ, obs_var; save_path = "data.txt"
     if plot_data
         p = plot(time, data, ls = :dash, label="Data",
                  layout = (length(obs_var), 1))
-        plot!(data_sol, vars = obs_var, label = "True",
+        plot!(data_sol, idxs = obs_var, label = "True",
               layout = (length(obs_var), 1))
         display(p)
     end
